@@ -103,6 +103,8 @@ html, body {{
 #book {{
   width: {BOOK_WIDTH}px; /* Initial width */
   height: {BOOK_HEIGHT}px;
+  max-width: 100vw;
+  max-height: 100vh;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -286,13 +288,13 @@ $(document).ready(function () {{
     
     $('#book').turn('size', newWidth, newHeight);
     $('#book').turn('display', displayMode);
-    $('#book').turn('center');
+    // $('#book').turn('center');
   }}
 
   $('#book').turn({{
     width: {BOOK_WIDTH},
     height: {BOOK_HEIGHT},
-    autoCenter: true,
+    autoCenter: false,
     gradients: true,
     acceleration: true,
     elevation: 50,
