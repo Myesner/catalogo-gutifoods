@@ -230,7 +230,8 @@ html, body {{
 <div id="loader"></div>
 
 <!-- Contador -->
-<div id="page-counter">Cargando...</div>
+<div id="page-counter"></div>
+<audio id="page-flip-sound" src="sound/page-flip.mp3"></audio>
 
 <!-- Botones de navegación -->
 <button class="nav-btn prev-btn" id="prev">&lt;</button>
@@ -298,9 +299,16 @@ $(document).ready(function () {{
     gradients: true,
     acceleration: true,
     elevation: 50,
-    duration: 800,
+    duration: 1000,
     display: 'double',
     when: {{
+      turning: function(e, page, view) {{
+        var audio = document.getElementById("page-flip-sound");
+        if (audio) {{
+            audio.currentTime = 0;
+            audio.play().catch(e => console.log("Audio play failed (interaction required first)"));
+        }}
+      }},
       turned: function(e, page) {{
         updateCounter(page);
       }},
@@ -357,14 +365,28 @@ $(document).ready(function () {{
       toggleZoom();
   }});
 
-  // Click Zones
-  $('#book').on('click', function(e) {{
+  // Click Zones - Modified to allow corner dragging on PC
+  $('#book').on('mousedown', function(e) {{
     if (isZoomed) return;
+    
     var offset = $(this).offset();
     var width = $(this).width();
+    var height = $(this).height();
     var x = e.pageX - offset.left;
-    if (x > width / 2) $('#book').turn('next');
-    else $('#book').turn('previous');
+    var y = e.pageY - offset.top;
+    
+    // Define corner size (matches turn.js default or configured cornerSize)
+    var cornerSize = 100; 
+
+    // Check if click is in a corner
+    var isCorner = (y < cornerSize || y > height - cornerSize) && 
+                   (x < cornerSize || x > width - cornerSize);
+                   
+    if (!isCorner) {{
+        // If NOT a corner, treat as a click to turn
+        if (x > width / 2) $('#book').turn('next');
+        else $('#book').turn('previous');
+    }}
   }});
 
   $('#prev').click(function() {{ $('#book').turn('previous'); }});

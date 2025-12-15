@@ -1,0 +1,6 @@
+COLOCA TU ARCHIVO DE SONIDO AQUÍ
+
+Por favor, descarga un efecto de sonido de paso de página (formato .mp3) y guárdalo en esta carpeta con el nombre:
+page-flip.mp3
+
+Si no colocas el archivo, no se escuchará nada, pero el catálogo funcionará normalmente.
