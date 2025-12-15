@@ -266,7 +266,8 @@ $(document).ready(function () {{
     var winHeight = $(window).height();
     
     // Reduce margins significantly on mobile to maximize size
-    var margin = winWidth < 600 ? 10 : 50;
+    // Increased to 20 to prevent edge cutoff
+    var margin = winWidth < 600 ? 20 : 50;
     
     var availWidth = winWidth - margin;
     var availHeight = winHeight - margin;
