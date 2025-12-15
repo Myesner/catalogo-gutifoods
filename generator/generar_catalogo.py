@@ -14,8 +14,11 @@ PAGES_DIR = os.path.join(SITE_DIR, "pages")
 
 DPI = 200
 QUALITY = 85
-BOOK_WIDTH = 1000
+# Configuración del libro
+BOOK_WIDTH = 920   # Optimized for A4 double spread ratio (~1.41)
 BOOK_HEIGHT = 650
+PAGE_WIDTH = BOOK_WIDTH // 2
+PAGE_HEIGHT = BOOK_HEIGHT
 # ========================
 
 os.makedirs(PAGES_DIR, exist_ok=True)
@@ -194,10 +197,27 @@ html, body {{
 }}
 
 /* RESPONSIVE */
-@media (max-width: 1000px) {{
-  #book {{
-    width: 90vw;
-    height: 60vw;
+@media (max-width: 600px) {{
+  /* Mobile specific adjustments */
+  .turn-page img {{
+    object-fit: contain !important; /* Prevent distortion on mobile */
+    background: #fff;
+  }}
+  
+  .nav-btn {{
+    width: 30px;
+    height: 30px;
+    font-size: 14px;
+    background: rgba(0,0,0,0.3);
+  }}
+  
+  .prev-btn {{ left: 5px; }}
+  .next-btn {{ right: 5px; }}
+  
+  #page-counter {{
+    font-size: 10px;
+    bottom: 5px;
+    right: 5px;
   }}
 }}
 </style>
@@ -244,7 +264,10 @@ $(document).ready(function () {{
     
     var winWidth = $(window).width();
     var winHeight = $(window).height();
-    var margin = 50;
+    
+    // Reduce margins significantly on mobile to maximize size
+    var margin = winWidth < 600 ? 10 : 50;
+    
     var availWidth = winWidth - margin;
     var availHeight = winHeight - margin;
     var newWidth, newHeight;
