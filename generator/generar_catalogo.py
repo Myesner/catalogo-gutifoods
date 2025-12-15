@@ -9,7 +9,7 @@ from PIL import Image
 # ===== CONFIGURACIÓN =====
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 PDF_PATH = os.path.join(BASE_DIR, "pdf", "DELACASA CHEESE COLLECTION.pdf")
-SITE_DIR = os.path.join(BASE_DIR, "site")
+SITE_DIR = os.path.join(BASE_DIR, "docs")
 PAGES_DIR = os.path.join(SITE_DIR, "pages")
 
 DPI = 200
